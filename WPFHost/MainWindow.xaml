@@ -1,0 +1,25 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFHost"
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" x:Class="WPFHost.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <Button x:Name="btn_StartService" Content="开启服务" Click="btn_StartService_Click"/>
+        <Button x:Name="btn_StopService" IsEnabled="False" Content="停止服务" Click="btn_StopService_Click"/>
+        <ListView x:Name="listView" ItemsSource="{Binding}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="请求类型" Width="120" DisplayMemberBinding="{Binding RequestType}"/>
+                    <GridViewColumn Header="请求数据" Width="120" DisplayMemberBinding="{Binding RequestData}"/>
+                    <GridViewColumn Header="请求时间" Width="120" DisplayMemberBinding="{Binding RequestTime}"/>
+                    <GridViewColumn Header="请求错误信息" Width="120" DisplayMemberBinding="{Binding ErrorMessage}"/>
+                    <GridViewColumn Header="客户端信息" Width="120" DisplayMemberBinding="{Binding ClientInfo}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Window>

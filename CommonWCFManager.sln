@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFService", "WCFService\WCFService.csproj", "{83FE5891-65A2-4CB2-82E6-499C86544EA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFHost", "WPFHost\WPFHost.csproj", "{256A1E29-4991-4BC2-A1C6-6374DF9EE9E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWCFService", "TestWCFService\TestWCFService.csproj", "{BE1A4387-0B51-434D-A1ED-DC923639FB93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83FE5891-65A2-4CB2-82E6-499C86544EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83FE5891-65A2-4CB2-82E6-499C86544EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83FE5891-65A2-4CB2-82E6-499C86544EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83FE5891-65A2-4CB2-82E6-499C86544EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256A1E29-4991-4BC2-A1C6-6374DF9EE9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256A1E29-4991-4BC2-A1C6-6374DF9EE9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256A1E29-4991-4BC2-A1C6-6374DF9EE9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256A1E29-4991-4BC2-A1C6-6374DF9EE9E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1A4387-0B51-434D-A1ED-DC923639FB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1A4387-0B51-434D-A1ED-DC923639FB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1A4387-0B51-434D-A1ED-DC923639FB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1A4387-0B51-434D-A1ED-DC923639FB93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {089F2EF8-61D1-4821-B528-D5A44B362E93}
+	EndGlobalSection
+EndGlobal
