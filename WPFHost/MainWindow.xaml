@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFHost"
         xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" x:Class="WPFHost.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="qq446329253" Height="450" Width="800">
     <StackPanel>
         <Button x:Name="btn_StartService" Content="开启服务" Click="btn_StartService_Click"/>
         <Button x:Name="btn_StopService" IsEnabled="False" Content="停止服务" Click="btn_StopService_Click"/>
