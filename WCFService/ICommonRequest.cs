@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 
 namespace WCFService
@@ -11,17 +12,24 @@ namespace WCFService
     public interface ICommonRequest
     {
         [OperationContract]
-        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "post/{type}?requestBody={requestBody}")]
-        string HandleAllPostRequests(string type, string requestBody);
-        [WebGet(RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "get/{type}?requestBody={requestBody}")]
-        string HandleAllGetRequests(string type, string requestBody);
-        [WebInvoke(Method = "*", UriTemplate = "upLoadFile", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "{type}?")]
+        Message HandleAllPostRequests(string type);
+
+        [WebGet(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "{type}?")]
+        Message HandleAllGetRequests(string type);
+
+        [WebInvoke(Method = "*", UriTemplate = "uploadFile", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         [System.ComponentModel.Description("上传文件")]
         [OperationContract]
         string HandleAllUploadFile(Stream stream);
+
         [OperationContract]
         [System.ComponentModel.Description("下载文件")]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "downFile/{downfile}")]
-        Stream HandleAllDownFile(string downfile);
+        [WebGet(UriTemplate = "show/{downfile}",BodyStyle =WebMessageBodyStyle.WrappedResponse)]
+        Stream HandleAllShow(string downfile);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "downFile/{fileName}")]
+        Message HandleAllDownFile(string fileName);
     }
 }

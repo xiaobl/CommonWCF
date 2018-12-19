@@ -60,7 +60,7 @@ namespace WPFHost
         public void AddContent(LogInfo loginfo)
         {
             this.Dispatcher.Invoke(() => {
-                LogInfos.Add(loginfo);
+                LogInfos.Insert(0, loginfo);
             });
         }
         /// <summary>
@@ -80,6 +80,11 @@ namespace WPFHost
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btn_clearLog_click(object sender, RoutedEventArgs e)
+        {
+            LogInfos.Clear();
         }
     }
 }

@@ -1,0 +1,453 @@
+﻿{
+  "login": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "phone": null,
+      "name": "红云鼎",
+      "avatar": null,
+      "job": "领导",
+      "account": "admin"
+    }
+  },
+  "getRegionLocation3D": {
+    "message": null,
+    "state": 200,
+    "data": [
+      {
+        "position": "zhangzm",
+        "length": "40.5",
+        "x": 200.5,
+        "mark": "K124+12.9"
+      },
+      {
+        "position": "erc",
+        "length": "40.5",
+        "x": 100.5,
+        "mark": "K124+12.9"
+      },
+      {
+        "position": "dongk",
+        "length": "40.5",
+        "x": 0,
+        "mark": "K124+12.9"
+      }
+    ]
+  },
+  "getPersonLocation3D": {
+    "message": null,
+		"state": 200,
+    "data": [
+      {
+        "label": "DB4",
+        "labelName": "绕三",
+        "x": 105,
+        "y": 4
+      },
+      {
+        "label": "DB314",
+        "labelName": "绕三苦",
+        "x": 85,
+        "y": 4
+      },
+      {
+        "label": "DB3144",
+        "labelName": "夺三在",
+        "x": 60,
+        "y": 4
+      },
+      {
+        "label": "DB3414",
+        "labelName": "碍口地",
+        "x": 110,
+        "y": 4
+      },
+      {
+        "label": "DB414134",
+        "labelName": "恶法",
+        "x": 115,
+        "y": 4
+      },
+      {
+        "label": "D4",
+        "labelName": "交接班",
+        "x": 100,
+        "y": 4
+      }
+    ]
+  },
+  "getSchedulePie": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "statData": {
+        "total": {
+          "zhangzm": 223.1,
+          "unit": "m",
+          "erc": 202.1
+        },
+        "month": {
+          "zhangzm": 32.1,
+          "unit": "m",
+          "erc": 32.1
+        },
+        "week": {
+          "zhangzm": 3.1,
+          "unit": "m",
+          "erc": 3.1
+        }
+      },
+      "pie": {
+        "zhangzm": {
+          "completed": 0.36,
+          "unit": "m",
+          "uncompleted": 0.64
+        },
+        "erc": {
+          "completed": 0.36,
+          "unit": "m",
+          "uncompleted": 0.64
+        }
+      }
+    }
+  },
+  "getScheduleBar": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "zhangzm": [
+        {
+          "date": "11/20",
+          "value": 5.2
+        },
+        {
+          "date": "11/21",
+          "value": 5.2
+        },
+        {
+          "date": "11/22",
+          "value": 7.2
+        },
+        {
+          "date": "11/23",
+          "value": 5.2
+        },
+        {
+          "date": "11/24",
+          "value": 5.2
+        },
+        {
+          "date": "11/25",
+          "value": 3.2
+        },
+        {
+          "date": "11/26",
+          "value": 5.2
+        }
+      ],
+      "erc": [
+        {
+          "date": "11/20",
+          "value": 5.2
+        },
+        {
+          "date": "11/21",
+          "value": 5.2
+        },
+        {
+          "date": "11/22",
+          "value": 5.2
+        },
+        {
+          "date": "11/23",
+          "value": 5.2
+        },
+        {
+          "date": "11/24",
+          "value": 5.2
+        },
+        {
+          "date": "11/25",
+          "value": 5.2
+        },
+        {
+          "date": "11/26",
+          "value": 5.2
+        }
+      ],
+      "unit": "m"
+    }
+  },
+  "getScheduleHistory": {
+    "message": null,
+    "state": 200,
+    "data": [
+      {
+        "date": "2018/11/01",
+        "zhangzmMark": "k45+123.1",
+        "zhangzmJinChi": "2",
+        "ercMark": "k45+123.1",
+        "ercJinChi": "2"
+      },
+      {
+        "date": "2018/11/01",
+        "zhangzmMark": "k45+123.1",
+        "zhangzmJinChi": "2",
+        "ercMark": "k45+123.1",
+        "ercJinChi": "2"
+      },
+      {
+        "date": "2018/11/01",
+        "zhangzmMark": "k45+123.1",
+        "zhangzmJinChi": "2",
+        "ercMark": "k45+123.1",
+        "ercJinChi": "2"
+      },
+      {
+        "date": "2018/11/01",
+        "zhangzmMark": "k45+123.1",
+        "zhangzmJinChi": "2",
+        "ercMark": "k45+123.1",
+        "ercJinChi": "2"
+      }
+    ]
+  },
+  "getPeopleStat": {
+    "data": {
+      "circle": {
+        "total": 15,
+        "in": 0,
+        "out": 15
+      },
+      "position": {
+        "dongk": 0,
+        "erc": 0,
+        "zhangzm": 0
+      }
+    },
+    "message": "success",
+    "state": 200
+  },
+  "getPeopleStatDetail": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "stat": {
+        "total": 60,
+        "out": 30,
+        "in": 30,
+        "zhangzm": 8,
+        "erc": 7,
+        "dongk": 15
+      },
+      "detail": {
+        "zhangzm": [
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          }
+        ],
+        "erc": [
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          }
+        ],
+        "dongk": [
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          },
+          {
+            "name": "张三",
+            "clazzName": "爆破班"
+          }
+        ]
+      }
+    }
+  },
+  "getExitRecord": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "people": [
+        {
+          "time": "11:23:01",
+          "name": "張三",
+          "clazzName": "爆破班",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "name": "張三",
+          "clazzName": "爆破班",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "name": "張三",
+          "clazzName": "爆破班",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "name": "張三",
+          "clazzName": "爆破班",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "name": "張三",
+          "clazzName": "爆破班",
+          "type": "进场"
+        }
+      ],
+      "car": [
+        {
+          "time": "11:23:56",
+          "carPlate": "川A E2322",
+          "carType": "卡車",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "carPlate": "川A E1322",
+          "carType": "卡車",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "carPlate": "川A E1322",
+          "carType": "卡車",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "carPlate": "川A E1322",
+          "carType": "卡車",
+          "type": "进场"
+        },
+        {
+          "time": "11:23:01",
+          "carPlate": "川A E1322",
+          "carType": "卡車",
+          "type": "进场"
+        }
+      ]
+    }
+  },
+  "getPeopleExitDetail": {
+    "message": null,
+    "state": 200,
+    "data": [
+      {
+        "name": "张三",
+        "clazzName": "爆破班",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "name": "张三",
+        "clazzName": "爆破班",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "name": "张三",
+        "clazzName": "爆破班",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "name": "张三",
+        "clazzName": "爆破班",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      }
+    ]
+  },
+  "getCarExitDetail": {
+    "message": null,
+    "state": 200,
+    "data": [
+      {
+        "carPlate": "川A E2333",
+        "carType": "卡车",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "carPlate": "川A E2333",
+        "carType": "卡车",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "carPlate": "川A E2333",
+        "carType": "卡车",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "carPlate": "川A E2333",
+        "carType": "卡车",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      },
+      {
+        "carPlate": "川A E2333",
+        "carType": "卡车",
+        "inTime": "2018/9/30 10:30",
+        "outTime": "2018/9/30 11:30",
+        "sustainTime": "1小时"
+      }
+    ]
+  },
+  "getProInfo": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "proName": "中田山数字化隧道",
+      "sectionName": "川交路桥G544线川九路CJ1标段",
+      "clientName": "鼎云PC客户端",
+      "version": "1.0.0.5"
+    }
+  },
+  "getWeather": {
+    "message": null,
+    "state": 200,
+    "data": {
+      "cond_txt": "多云",
+      "tmp": "25℃",
+      "cond_code": "12"
+    }
+  }
+}

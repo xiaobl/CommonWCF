@@ -6,15 +6,19 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.WebSockets;
 using System.ServiceModel;
+using System.ServiceModel.Activation;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace WCFService
 {
     public delegate void DisPlayContent(LogInfo logInfo);
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的类名“PersonInfo”。
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Service : ICommonRequest, IWebSocketsServer
     {
         public DisPlayContent AddConten = null;
@@ -25,20 +29,35 @@ namespace WCFService
         /// <param name="type"></param>
         /// <param name="requestBody"></param>
         /// <returns></returns>
-        public string HandleAllPostRequests(string type, string requestBody)
+        public Message HandleAllPostRequests(string type)
         {
-            if (type.Equals(RequestType.Login.ToString(),StringComparison.InvariantCultureIgnoreCase))
+            OperationContext context = OperationContext.Current;
+            //string query = context.RequestContext.RequestMessage.Headers.To.Query.Length > 0 ? context.RequestContext.RequestMessage.Headers.To.Query.Substring(1) : "";
+            StreamReader sr = new StreamReader(context.RequestContext.RequestMessage.GetBody<Stream>());
+            string bodyStr = sr.ReadToEnd();
+            sr.Close();
+            string str = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"RequestFiles\SingleHole.json");
+            JObject data = JObject.Parse(str);
+            if (data.ContainsKey(type))
             {
-                return InterfaceHandler.Login(requestBody);
-            }
-            else
-            {
-                OperationContext context = OperationContext.Current;
                 Task.Run(() =>
                 {
                     LogInfo logInfo = new LogInfo();
                     logInfo.RequestType = type;
-                    logInfo.RequestData = requestBody;
+                    logInfo.RequestData = bodyStr;
+                    logInfo.RequestTime = DateTime.Now;
+                    logInfo.ClientInfo = InterfaceHandler.ClientInfo(context);
+                    AddConten(logInfo);
+                });
+                return WebOperationContext.Current.CreateTextResponse(data[type].ToString());
+            }
+            else
+            {
+                Task.Run(() =>
+                {
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.RequestType = type;
+                    logInfo.RequestData = bodyStr;
                     logInfo.RequestTime = DateTime.Now;
                     logInfo.ErrorMessage = "请求路径不存在";
 
@@ -54,21 +73,41 @@ namespace WCFService
         /// <param name="type"></param>
         /// <param name="requestBody"></param>
         /// <returns></returns>
-        public string HandleAllGetRequests(string type, string requestBody)
+        public Message HandleAllGetRequests(string type)
         {
-            Task.Run(() =>
+            OperationContext context = OperationContext.Current;
+            string query = context.RequestContext.RequestMessage.Headers.To.Query.Length>0? context.RequestContext.RequestMessage.Headers.To.Query.Substring(1):"";
+            string str = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"RequestFiles\SingleHole.json",Encoding.UTF8);
+            JObject data = JObject.Parse(str);
+            if (data.ContainsKey(type))
             {
-                JObject content = JObject.FromObject(new { date = DateTime.Now.ToString("o"), type, data = requestBody });
-            });
-            if (type.Equals(RequestType.Login.ToString(), StringComparison.InvariantCultureIgnoreCase))
-            {
-                return InterfaceHandler.Login(requestBody);
+                Task.Run(() =>
+                {
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.RequestType = type;
+                    logInfo.RequestData = query;
+                    logInfo.RequestTime = DateTime.Now;
+                    logInfo.ClientInfo = InterfaceHandler.ClientInfo(context);
+                    AddConten(logInfo);
+                });
+                return WebOperationContext.Current.CreateTextResponse(data[type].ToString(), "text/plain", Encoding.UTF8);
             }
             else
             {
+                Task.Run(() =>
+                {
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.RequestType = type;
+                    logInfo.RequestData = query;
+                    logInfo.RequestTime = DateTime.Now;
+                    logInfo.ErrorMessage = "请求路径不存在";
+
+                    logInfo.ClientInfo = InterfaceHandler.ClientInfo(context);
+                    AddConten(logInfo);
+                });
                 return InterfaceHandler.ErrorRequest(400, "请求路径不存在");
             }
-        }   
+        }
         /// <summary>
         /// 统一所有上传文件入口
         /// </summary>
@@ -79,7 +118,7 @@ namespace WCFService
             HttpMultipartParser.MultipartFormDataParser content = new HttpMultipartParser.MultipartFormDataParser(stream);
             try
             {
-                using (FileStream fs = new FileStream(@"D:\" + content.Files[0].FileName, FileMode.OpenOrCreate))
+                using (FileStream fs = new FileStream(@"D:\httpRequestFiles\uploadFiles" + content.Files[0].FileName, FileMode.OpenOrCreate))
                 {
                     content.Files[0].Data.CopyTo(fs);
                     StreamReader sr = new StreamReader(fs);
@@ -93,23 +132,61 @@ namespace WCFService
             }
         }
         /// <summary>
-        /// 统一所有下载文件入口
+        /// 统一所有流文件入口
         /// </summary>
         /// <param name="downfile"></param>
         /// <returns></returns>
-        public Stream HandleAllDownFile(string downfile)
+        public Stream HandleAllShow(string downfile)
         {
-            string runDir = "d:\\";
+            string runDir = @"D:\httpRequestFiles\downFiles";
             string filePath = System.IO.Path.Combine(runDir, downfile);
             try
             {
-                System.IO.FileStream fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open);
-                return fs;
+                OperationContext context = OperationContext.Current;
+                Task.Run(() =>
+                {
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.RequestType = "下载文件";
+                    logInfo.RequestData = downfile;
+                    logInfo.RequestTime = DateTime.Now;
+                    logInfo.ClientInfo = InterfaceHandler.ClientInfo(context);
+                    AddConten(logInfo);
+                });
+                Stream stream = File.OpenRead(filePath);
+                WebOperationContext.Current.OutgoingResponse.ContentType = "application/octet-stream";
+                WebOperationContext.Current.OutgoingResponse.Headers.Add("ContentLength", stream.Length.ToString());
+                return stream;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                OperationContext context = OperationContext.Current;
+                Task.Run(() =>
+                {
+                    LogInfo logInfo = new LogInfo();
+                    logInfo.RequestType = "下载文件";
+                    logInfo.RequestData = downfile;
+                    logInfo.RequestTime = DateTime.Now;
+                    logInfo.ErrorMessage = "请求路径不存在";
+
+                    logInfo.ClientInfo = InterfaceHandler.ClientInfo(context);
+                    AddConten(logInfo);
+                });
                 return null;
             }
+        }
+        /// <summary>
+        /// 统一所有下载文件入口
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public Message HandleAllDownFile(string fileName)
+        {
+            string runDir = @"D:\httpRequestFiles\downFiles";
+            string filePath = System.IO.Path.Combine(runDir, fileName);
+            Stream stream = File.OpenRead(filePath);
+            WebOperationContext.Current.OutgoingResponse.Headers.Add("ContentLength", stream.Length.ToString());
+            WebOperationContext.Current.OutgoingResponse.ContentLength = stream.Length;
+            return WebOperationContext.Current.CreateStreamResponse(stream, "application/octet-stream");
         }
         #endregion
         #region 常联接
@@ -178,7 +255,7 @@ namespace WCFService
     }
     enum RequestType
     {
-        Login=0
+        Login = 0
     }
     public static class InterfaceHandler
     {
@@ -187,9 +264,9 @@ namespace WCFService
             string str = File.ReadAllText(@"C:\Users\44632\Desktop\DaringTunnelV1File\login.json", Encoding.UTF8);
             return str;
         }
-        public static string ErrorRequest(int errorData, string message)
+        public static Message ErrorRequest(int errorData, string message)
         {
-            return JsonConvert.SerializeObject(JObject.FromObject(new { code = errorData, data = message }));
+            return null;
         }
         public static string UploadReturnInfo(bool isSccess)
         {
@@ -202,7 +279,7 @@ namespace WCFService
             return endpoint.Address + ":" + endpoint.Port.ToString();
         }
     }
-    public class LogInfo: INotifyPropertyChanged
+    public class LogInfo : INotifyPropertyChanged
     {
         private string requestType;
         public string RequestType

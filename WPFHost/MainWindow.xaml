@@ -6,20 +6,93 @@
         xmlns:local="clr-namespace:WPFHost"
         xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" x:Class="WPFHost.MainWindow"
         mc:Ignorable="d"
-        Title="qq446329253" Height="450" Width="800">
-    <StackPanel>
-        <Button x:Name="btn_StartService" Content="开启服务" Click="btn_StartService_Click"/>
-        <Button x:Name="btn_StopService" IsEnabled="False" Content="停止服务" Click="btn_StopService_Click"/>
-        <ListView x:Name="listView" ItemsSource="{Binding}" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="请求类型" Width="120" DisplayMemberBinding="{Binding RequestType}"/>
-                    <GridViewColumn Header="请求数据" Width="120" DisplayMemberBinding="{Binding RequestData}"/>
-                    <GridViewColumn Header="请求时间" Width="120" DisplayMemberBinding="{Binding RequestTime}"/>
-                    <GridViewColumn Header="请求错误信息" Width="120" DisplayMemberBinding="{Binding ErrorMessage}"/>
-                    <GridViewColumn Header="客户端信息" Width="120" DisplayMemberBinding="{Binding ClientInfo}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </StackPanel>
+        Title="qq446329253" Height="500" Width="900" Background="#072253" Foreground="White">
+    <Border Padding="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Button x:Name="btn_StartService" Content="开启服务" Click="btn_StartService_Click"/>
+                <Button x:Name="btn_StopService" IsEnabled="False" Content="停止服务" Click="btn_StopService_Click"/>
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#0b2a4d" Padding="0,0,17,0" Background="#FF264B8F" Grid.Row="0">
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="请求时间" Grid.Column="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Line Stroke="#0b2a4d" X1="0" Y1="1" X2="0" Y2="30" Grid.Column="1" StrokeThickness="1"/>
+                        <TextBlock Text="请求类型" Grid.Column="2"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Line Stroke="#0b2a4d" X1="0" Y1="1" X2="0" Y2="30" Grid.Column="3" StrokeThickness="1"/>
+                        <TextBlock Text="请求体" Grid.Column="4"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Line Stroke="#0b2a4d" X1="0" Y1="1" X2="0" Y2="30" Grid.Column="5" StrokeThickness="1"/>
+                        <TextBlock Text="错误信息" Grid.Column="6"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <Line Stroke="#0b2a4d" X1="0" Y1="1" X2="0" Y2="30" Grid.Column="7" StrokeThickness="1"/>
+                        <TextBlock Text="客户端信息" Grid.Column="8"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Border>
+                <ListView x:Name="listView" Grid.Row="1" ItemsSource="{Binding LogInfos}" BorderBrush="#513699FF" BorderThickness="1,0,1,1" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border Name="border" BorderThickness="0,0,0,1" BorderBrush="#513699FF" Height="26">
+                                            <Grid VerticalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="1"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding RequestTime}" Grid.Column="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                                <Line Stroke="{Binding ElementName=border,Path=BorderBrush}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="26" Grid.Column="1"/>
+                                                <TextBlock Text="{Binding RequestType}" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                                <Line Stroke="{Binding ElementName=border,Path=BorderBrush}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="26" Grid.Column="3"/>
+                                                <TextBlock Text="{Binding RequestData}" Grid.Column="4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                                <Line Stroke="{Binding ElementName=border,Path=BorderBrush}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="26" Grid.Column="5"/>
+                                                <TextBlock Text="{Binding ErrorMessage}" Grid.Column="6" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                                <Line Stroke="{Binding ElementName=border,Path=BorderBrush}" StrokeThickness="1" X1="0" Y1="0" X2="0" Y2="26" Grid.Column="7"/>
+                                                <TextBlock Text="{Binding ClientInfo}" Grid.Column="8" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="border" Value="{Binding ElementName=border,Path=BorderBrush}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsFocused" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="border" Value="{Binding ElementName=border,Path=BorderBrush}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.Resources>
+                </ListView>
+            </Grid>
+            <Button Name="btn_clearLog" Click="btn_clearLog_click" Content="清除数据" Grid.Row="2"/>
+        </Grid>
+    </Border>
 </Window>
